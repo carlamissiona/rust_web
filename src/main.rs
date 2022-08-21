@@ -1,5 +1,5 @@
-// use warp::Filter;
-use warp::{http::Uri, Filter};
+use warp::Filter;
+// use warp::{http::Uri, Filter};
 
 #[tokio::main]
 
@@ -7,15 +7,11 @@ async fn main() {
     pretty_env_logger::init();
 
     let hello_world = warp::path::end().map(|| "Hello, World at root!");
-
-    let rustexample = warp::path("hi").map(|| "Hello, World!" );
     
     let staticspa = warp::path("static").and(warp::fs::dir("src/html"));
     
     let routes = warp::get().and(
         hello_world
-            .or(rustexample)
-            .or(htmlroute)
             .or(staticspa)
     );
  
